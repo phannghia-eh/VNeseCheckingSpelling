@@ -6,7 +6,7 @@ var Diacritics = require('diacritic');
 
 // Hàm bỏ dấu câu
 function removeAccent(str) {
-    str = str.toLowerCase();//chuyển về chữ thường
+    str = str.toLowerCase(); //chuyển về chữ thường
     str = Diacritics.clean(str); //bỏ dấu
     return str;
 }
@@ -38,7 +38,7 @@ exports.listSuggestions = async function (req, res) {
         suggestions : []
     }
 
-    //Biến temp
+    //Biến temp để xác nhận xem từ nhận vào có đúng chính tả hay không
     var temp = 0;
 
     //Nếu từ được truyền có trong csdl thì trả về không kiểm tra nữa khi temp = 1
