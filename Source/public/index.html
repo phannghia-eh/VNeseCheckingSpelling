@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kiểm tra chính tả</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style type="text/css">
+		header {
+		    padding: 1em;
+		    color: white;
+		    background-color: #09638f;
+		    clear: left;
+		    text-align: center;
+		}
+		footer {
+		    background-color: #09638f;
+		    text-align: center;
+		    color: #ffffff;
+		    /*position: absolute;*/
+		    bottom: 0;
+		    width: 100%;
+		    height: 80px;
+		    line-height: 80px;
+		}
+		header .navbar-default .navbar-nav>li>a {
+			color: white;
+		}
+		.row {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+		#main-menu .nav-pills li a {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		#page-content {
+			margin-top: 30px;
+		}
+		#menu-editor .navbar {
+			margin-bottom: 0px;
+		}
+		#content-editor .form-control {
+			border-top-left-radius: 0px;
+			border-top-right-radius: 0px;
+		}
+		#spell-dialog ul li {
+			margin-bottom: 30px;
+		}
+		#spell-dialog li button {
+			width: 80%;
+			height: 46px;
+			/*background-color: #0157AE;*/
+		}
+
+		#list-incorrect {
+			padding-top: 20px;
+			padding-bottom: 15px;
+			border-top: 1px solid #CCC;
+			/*border-bottom: 1px solid #CCC;*/
+		}
+		#edit-incorrect label {
+			float: left;
+			margin-right: 30px;
+			font-weight: 500;
+			line-height: 34px;
+		}
+
+		#edit-btn-group button {
+			margin-left: 30px;
+			width: 130px;
+		}
+	
+	</style>
+	<link href="../css/jquery.highlight-within-textarea.css" rel="stylesheet">
+</head>
+<body>
+	
+	<header>
+		<nav class="navbar navbar-default" style="background-color: #09638F; border: none;">
+			<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="#" style="float: left;">
+					<img src="../images/icon-home.png" width="60" height="60">
+				</a>
+				<a class="navbar-brand" href="#" style="font-size: 26px; color: white;">
+					WebsiteName
+				</a>
+			</div>
+			<!-- <ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Page 1-1</a></li>
+					<li><a href="#">Page 1-2</a></li>
+					<li><a href="#">Page 1-3</a></li>
+				</ul>
+				</li>
+				<li><a href="#">Page 2</a></li>
+			</ul> -->
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+			</div>
+		</nav>
+	</header>
+
+	<div id="main-menu" class="row" style="margin-top: 5px; background-color: #F8F8F8; padding-left: 10px; padding-right: 40px;">
+		<ul class="nav nav-pills" style="float: left;">
+			<li role="presentation" class="active"><a href="#">Home</a></li>
+			<li role="presentation"><a href="#">Translate</a></li>
+			<li role="presentation"><a href="#">Dictionary</a></li>
+			<li role="presentation"><a href="#">Contact</a></li>
+			<li role="presentation"><a href="#">About</a></li>
+			<li role="presentation"><a href="#">FAQs</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Vietnamese</a></li>
+					<li><a href="#">English</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="page-content" class="container-fluid">
+		<div class="row">
+			<div id="editor" class="col-md-8">
+				<div class="row">
+					<div id="spellEditor">
+						<div id="menu-editor">
+							<nav class="navbar navbar-default">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<ul class="nav navbar-nav">
+											
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File <span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<input type="file" id="choose-file-button" accept=".txt" style="display:none"></input>
+													<li><a href="#" onclick="getElementById('choose-file-button').click()">Choose file</a></li>
+												</ul>
+											</li>
+
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit <span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<li><a href="#">Action</a></li>
+													<li><a href="#">Another action</a></li>
+												</ul>
+											</li>
+
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View <span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<li><a href="#">Action</a></li>
+													<li><a href="#">Another action</a></li>
+												</ul>
+											</li>
+
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
+												<ul class="dropdown-menu">
+													<li><a href="#">Action</a></li>
+													<li><a href="#">Another action</a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</div>
+						<div id="content-editor">
+								<form>
+									<div class="form-group">
+										<textarea class="form-control" rows="15" id="text-area-1" style="z-index: 1"></textarea>
+									</div>
+									</form>
+							</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="spell-dialog" class="col-md-4">
+				<ul style="list-style: none;">
+					<li><button type="button" class="btn btn-primary" id="checking-passage">Check spelling</button></li>
+					<!-- <li><button type="button" class="btn btn-primary">Check grammar</button></li>
+					<li><button type="button" class="btn btn-primary">Check vocalbulary</button></li>
+					<li><button type="button" class="btn btn-primary">Check Paraphrase</button></li> -->
+				</ul>
+				
+			</div>
+		</div>
+
+		<div id="fade" class="black_overlay" onclick="
+			document.getElementById('light').style.display='none';
+			document.getElementById('fade').style.display='none';"></div>
+		<div id="light" class="white_content">asdasdanskdjas</div>
+	
+		<!-- <div class="row" style="margin-top: 20px;">
+			<div id="incorrect-editor" class="col-md-8">
+				<div class="row">
+					<div id="list-incorrect">
+						<h4>List incorrect grammar &amp; spelling</h4>
+						<div class="form-group">
+							<textarea class="form-control" rows="8" id="text-area-2"></textarea>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 20px;">
+
+					<div id="edit-incorrect">
+						<div class="col-md-6">
+							<label>Replace </label>
+							<input type="text" class="form-control" style="width: 70%;">
+						</div>
+
+						<div class="col-md-6">
+							<label>with </label>
+							<div class="input-group">
+								<input type="text" class="form-control" aria-label="...">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></button>
+									<ul class="dropdown-menu dropdown-menu-right" id="dropdown-combobox">
+										<li><a href="#">Action</a></li>
+										<li><a href="#">Another action</a></li>
+										<li><a href="#">Something else here</a></li>
+									</ul>
+								</div><!-- /btn-group -->
+							<!-- </div>/input-group -->
+						<!-- </div>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 20px; padding-bottom: 30px; border-bottom: 1px solid #CCC;">
+					<div id="edit-btn-group" style="float: right; padding-right: 20px;">
+						<button type="button" class="btn btn-primary">Replace</button>
+						<button type="button" class="btn btn-primary">Next</button>
+						<button type="button" class="btn btn-primary">Ignore all</button>
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="col-md-4" style="padding-left: 60px;">
+				<img src="../images/ads1.jpg" width="300" height="410">
+			</div>
+		</div> -->
+
+		<div class="row" style="margin-top: 30px;">
+			<div class="col-md-8">
+				<div class="row">
+					<div style="float: right;">
+						<label style="margin-right: 15px;">Your feedback </label>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						<span class="glyphicon glyphicon-star-empty"></span>
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-md-2" style="padding-left: 50px; padding-right: 0px; text-align: right;">
+						<img src="../images/icon-user.png" width="70%" height="60%">
+					</div>
+					<div class="col-md-10">
+						<textarea id="text-area" class="form-control" rows="3"></textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				
+			</div>
+		</div>
+
+	</div>
+
+	<footer style="margin-top: 80px;">
+		Copyright &copy; W3Schools.com
+	</footer>
+	
+	<!-- <script type="text/javascript">
+		document.getElementById("error").addEventListener('click', function() {
+			alert("asdasdasd");
+		});
+	</script>									 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../javascript/jquery.highlight-within-textarea.js"></script>
+	<script src= "../javascript/handle.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="../javascript/readfile.js"></script>
+</body>
+
+</html>
