@@ -17,8 +17,6 @@ function isSugessionWord(wrongWord, suggestiveWord) {
     wrongWord = removeAccent(wrongWord);
     suggestiveWord = removeAccent(suggestiveWord);
 
-
-
     if (
         (wrongWord.includes(suggestiveWord) && suggestiveWord.length > 2)//Nếu từ sai khi bỏ dấu bao gồm từ gợi ý thì trả về true
         ||
@@ -47,26 +45,16 @@ function getListSuggestions(word) {
     var tempWord = '';
 
     //Trường hợp có dấu sau từ
-    if (word[word.length - 1] === '.' || word[word.length - 1] === ';'
-        || word[word.length - 1] === ':' || word[word.length - 1] === ',') {
-
-            tempWord  = word.substring(0, word.length - 1);
-            console.log(tempWord);
-    }
-    else{
-        tempWord = word;
-    }
-
+    tempWord = word.replace(/[,\.;:]/g, '');
+    console.log(tempWord);
 
     //so sánh
-    for (var i = 0; i < dictionary.length; i++) {
-        if (dictionary[i].toLowerCase() === tempWord.toLowerCase()) {
-            temp = 1;
-            break;
-        }
-    }
-    //temp = 0 tức là từ được truyền k có trong csdl
-    if (temp === 0) {
+    //use binary search
+    temp = search(dictionary, tempWord.toLowerCase());
+    console.log(temp);
+
+    //temp = -1 tức là từ được truyền k có trong csdl
+    if (temp === -1) {
         wrongWord.wrongWord = word;
         dictionary.forEach(function (line) {
             if (isSugessionWord(tempWord , line)) {//So sánh độ giống nhau
@@ -80,6 +68,23 @@ function getListSuggestions(word) {
     });
 
     return wrongWord;
+}
+
+function search(dictionary, word) {
+    let first = 0;
+    let last = dictionary.length - 1;
+    while(first < last) {
+        let mid = parseInt((last + first) / 2);
+        console.log(mid);
+        if(dictionary[mid].localeCompare(word) > 0) {
+            last = mid;
+        } else if(dictionary[mid].localeCompare(word) < 0) {
+            first = mid + 1;
+        } else {
+            return mid;
+        }
+    }
+    return -1;
 }
 
 exports.removeAccent = removeAccent;
