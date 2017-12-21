@@ -1,10 +1,19 @@
 var arr = [];
 var resultFromAPI = null;
+var beginIndexWrongWord = -1;
+var prevObjArr = [];
 
 $(document).on('click', function(event){
     console.log(event.target);
     if(event.target.nodeName === 'MARK'){
         var idName = event.target.id;
+        beginIndexWrongWord = getBeginIndexOfWrongWord(idName);
+        const sizeArr = prevObjArr.length;
+        for(let k = 0; k < sizeArr; k++){
+            if(prevObjArr[k].curIndexWordClick < beginIndexWrongWord){
+                beginIndexWrongWord = beginIndexWrongWord + prevObjArr[k].delta;
+            }
+        }
 
         document.getElementById("fade").style.display = 'block';
         var FixError = document.getElementById("light");
@@ -12,6 +21,7 @@ $(document).on('click', function(event){
         let size = resultFromAPI.length;
         for(let i = 0; i < size; i++){
             if(resultFromAPI[i].wrongWord === event.target.innerHTML){
+                curIndexWordClick=i;
                 FixError.innerHTML = "";
                 for(let k = 0; k < resultFromAPI[i].suggestions.length; k++){
                     FixError.innerHTML += ("<li id=\"" + idName + "\">" + resultFromAPI[i].suggestions[k]+ "</li>");
@@ -21,13 +31,28 @@ $(document).on('click', function(event){
         }
     } else if (event.target.nodeName === 'LI') {
         var ErrorElement = document.getElementById(event.target.id);
+        console.log('ErrorElement', ErrorElement);
         ErrorElement.innerHTML = event.target.innerHTML;
-        console.log(ErrorElement.innerHTML);
+        console.log('eiii', ErrorElement.innerHTML);
         
         document.getElementById("fade").style.display = 'none';
         var FixError = document.getElementById("light");
         FixError.style.display = 'none';
-        FixError.innerHTML = '';      
+        FixError.innerHTML = '';
+        let txt_area = $('#text-area-1').val();
+        const wrongWord = resultFromAPI[curIndexWordClick].wrongWord;
+        const alterWord = event.target.innerHTML;
+        prevObjArr.push({
+            prevWrongWord: wrongWord,
+            prevAlterWord: alterWord,
+            curIndexWordClick: beginIndexWrongWord,
+            delta: (alterWord.length - wrongWord.length)
+        });
+
+        let leftStr = txt_area.substring(0, beginIndexWrongWord);
+        let rightStr = txt_area.substring(beginIndexWrongWord+wrongWord.length);
+        $('#text-area-1').val(leftStr + alterWord + rightStr);
+        resetInitValue();
     }
 });
 
@@ -56,4 +81,15 @@ function highlightWrongWord(result){
     $('#text-area-1').highlightWithinTextarea({
         highlight: arr
     });
+}
+
+function getBeginIndexOfWrongWord(str){
+    const lastIndexOf_ = str.lastIndexOf('_');
+    let number = str.substring(lastIndexOf_+1);
+    return Number(number);
+}
+
+function resetInitValue(){
+    beginIndexWrongWord = -1;
+    curIndexWordClick = -1;
 }
