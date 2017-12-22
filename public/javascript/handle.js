@@ -52,12 +52,17 @@ $(document).on('click', function(event){
         let leftStr = txt_area.substring(0, beginIndexWrongWord);
         let rightStr = txt_area.substring(beginIndexWrongWord+wrongWord.length);
         $('#text-area-1').val(leftStr + alterWord + rightStr);
-        resetInitValue();
     }
 });
 
+$('#edit-paragraph-btn').on('click', function(){
+    $('#text-area-1').css('z-index', '2');
+})
+
 $('#checking-passage').on('click', function(){
+    resetInitValue();
     let text = $('#text-area-1').val();
+    $('#text-area-1').css('z-index', '1');
     $.ajax({
         type: 'POST',
         url: 'http://localhost:3000/passage',
@@ -91,5 +96,5 @@ function getBeginIndexOfWrongWord(str){
 
 function resetInitValue(){
     beginIndexWrongWord = -1;
-    curIndexWordClick = -1;
+    prevObjArr = [];
 }
