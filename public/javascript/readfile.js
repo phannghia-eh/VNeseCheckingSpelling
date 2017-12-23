@@ -57,7 +57,7 @@ function readText(filePath, onFileRead) {
 }
 
 function displayContents(txt) {
-    var el = document.getElementById('text-area');
+    var el = document.getElementById('text-area-1');
     el.value = txt;
 }
 
